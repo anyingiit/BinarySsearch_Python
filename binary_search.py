@@ -10,7 +10,7 @@ def generationRandomIntList(length: int, maxNumber: int) -> list[int]:
     :return: [length]长度的随机数数组, 其中最大数字为[maxNumber]
     """
     result: list[int] = []
-    for i in range(length):
+    for _ in range(length):
         result.append(int(random.random() * maxNumber))
     return result
 
