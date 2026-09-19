@@ -1,11 +1,20 @@
 # Source: GitHub starter workflow "Simple workflow" (MIT) — https://github.com/actions/starter-workflows/blob/main/ci/blank.yml
+#
+# Repaired by repocurator (feature 002):
+#   - `push` and `pull_request` triggered on `main`; this repository's default
+#     branch is `master`, so the workflow had never run on a push to it.
+#   - the test job ran the starter's placeholder echo, so a green check proved
+#     only that the runner could print a sentence. There is no packaging
+#     manifest here (this repository is a single stdlib-only script), so the
+#     test job now installs pytest directly, compiles the script as a build
+#     check, and runs the smoke test added at tests/test_binary_search.py.
 name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 # The workflow token is read-only by default.
@@ -52,7 +61,15 @@ jobs:
         with:
           persist-credentials: false
 
-      # Replace the step below with your project's test command. Pin any setup
-      # action you add to a full commit SHA, like the checkout step above.
-      - name: Run tests
-        run: echo "No tests yet. Replace this step with your project's test command."
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.9'
+
+      - name: Install test dependencies
+        run: pip install pytest
+
+      - name: Build
+        run: python -m py_compile binary_search.py
+
+      - name: Test
+        run: pytest -q tests

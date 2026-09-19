@@ -3,7 +3,9 @@
 
 # BinarySsearch Python
 
-Binary ssearch python: no README or manifest to go on; based on its name, built with Python, this looks like a software project — open the repository to confirm.
+A Python script implementing iterative binary search that verifies itself against 1000 randomly generated sorted lists on every run.
+
+**English** · [简体中文](README.zh-CN.md)
 
 [![CI](https://github.com/anyingiit/BinarySsearch_Python/actions/workflows/ci.yml/badge.svg)](https://github.com/anyingiit/BinarySsearch_Python/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/anyingiit/BinarySsearch_Python)](LICENSE)
@@ -24,7 +26,13 @@ Binary ssearch python: no README or manifest to go on; based on its name, built 
 
 ## About The Project
 
-Binary ssearch python: no README or manifest to go on; based on its name, built with Python, this looks like a software project — open the repository to confirm.
+`binary_search.py` is a self-contained implementation of the classic iterative
+binary search algorithm. `generationRandomIntList` and
+`generationRandomOrderIntList` build a random sorted list of integers, and
+`binary_search` narrows a search range in half on each step until it finds the
+target or the range is empty, printing its progress as it goes. Run directly,
+the script repeats this 1000 times over freshly generated lists and reports,
+for each round, whether the index it found matches the one the script expected.
 
 See the [open issues](https://github.com/anyingiit/BinarySsearch_Python/issues) for planned features and known issues.
 
@@ -32,9 +40,16 @@ See the [open issues](https://github.com/anyingiit/BinarySsearch_Python/issues) 
 
 ### Prerequisites
 
-- Git
+- Python 3.9 or newer — the script annotates return values as `list[int]`
+  (PEP 585), which needs 3.9+ without a `from __future__ import annotations`
+  import, and the file has none
+- No third-party packages — `binary_search.py` imports only the standard
+  library modules `math` and `random`
 
 ### Installation
+
+Nothing needs to be built or installed beyond Python itself; cloning the
+repository is the whole setup.
 
 ```sh
 git clone https://github.com/anyingiit/BinarySsearch_Python.git
@@ -43,9 +58,16 @@ cd BinarySsearch_Python
 
 ## Usage
 
+Run the script directly:
+
 ```sh
-BinarySsearch_Python --help
+python binary_search.py
 ```
+
+It performs its own check: 1000 rounds, each building a random sorted list of
+integers, searching it for one of the list's own elements, and printing the
+number of comparisons `binary_search` needed and whether the index it
+returned matched the one the script expected.
 
 ## Contributing
 
